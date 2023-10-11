@@ -53,9 +53,11 @@ function App() {
                     project: projectID,
                     token: token,
                 });
+                c.remoteElement = () => "remoteVideo";
+                c.localElement = () => "localVideo";
 
                 c.on('signalwire.ready', async () => {
-                    console.log('Connected to Relay');
+                    console.log('Connected to Relay', c);
                     setConnected(true);
                     await getAudioOutDevicesandSet(c);
                 });
@@ -191,6 +193,14 @@ function App() {
             <div>
                 Call:
                 {call ? <pre>{JSON.stringify(call.state, null, 2)}</pre> : 'No call'}
+            </div>
+            <div>
+                Remote Video: <br/>
+                <video id="remoteVideo" autoPlay={true} className="w-100" playsInline style={{backgroundColor: '#000', border: '1px solid #ccc', borderRadius: '5px'}}></video>
+            </div>
+            <div>
+                Local Video: <br/>
+                <video id="localVideo" autoPlay={true} className="w-100" playsInline style={{backgroundColor: '#000', border: '1px solid #ccc', borderRadius: '5px'}}></video>
             </div>
 
             <div>
